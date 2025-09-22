@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phố Đêm Đà Lạt</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Google Fonts - Sử dụng font Inter cho tiêu đề và nội dung -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Inter', sans-serif;
+        }
+        .header {
+            background: url('https://placehold.co/1920x600/3498db/ffffff?text=Ph%E1%BB%91+%C4%90%C3%AAm+%C4%90%C3%A0+L%E1%BA%A1t') no-repeat center center/cover;
+            height: 600px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .header h1, .header p {
+            z-index: 2;
+        }
+        .section-title {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            border-color: #3498db;
+            border-radius: 50px;
+            padding: 10px 30px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        .feature-box {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>Khám Phá Phố Đêm Đà Lạt</h1>
+        <p class="lead">Nơi tình yêu bắt đầu và những ký ức được tạo ra</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Đà Lạt</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#gioi-thieu">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dia-diem">Địa điểm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#am-thuc">Ẩm thực</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#lien-he">Liên hệ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- About Section -->
+        <section id="gioi-thieu" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h2 class="section-title">Giới Thiệu Về Phố Đêm Đà Lạt</h2>
+                        <p class="lead">
+                            Phố đêm Đà Lạt, còn được biết đến là Chợ đêm Đà Lạt, là một trong những điểm đến hấp dẫn nhất của thành phố ngàn hoa. Khi mặt trời lặn, nơi đây trở nên sống động với hàng trăm gian hàng bày bán đủ loại mặt hàng, từ quần áo, đồ lưu niệm cho đến những món ăn đường phố thơm ngon, hấp dẫn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Places Section -->
+        <section id="dia-diem" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title text-center">Các Địa Điểm Nổi Bật</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x400/27ae60/ffffff?text=Ch%E1%BB%A3+%C4%90%C3%AAm+%C4%90%C3%A0+L%E1%BA%A1t" class="card-img-top" alt="Chợ Đêm Đà Lạt">
+                            <div class="card-body">
+                                <h5 class="card-title">Chợ Đêm Đà Lạt</h5>
+                                <p class="card-text">Trung tâm của mọi hoạt động, nơi bạn có thể mua sắm và thưởng thức ẩm thực đường phố đặc trưng.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x400/9b59b6/ffffff?text=H%E1%BB%93+Xu%C3%A2n+H%C6%B0%C6%A1ng" class="card-img-top" alt="Hồ Xuân Hương">
+                            <div class="card-body">
+                                <h5 class="card-title">Hồ Xuân Hương</h5>
+                                <p class="card-text">Đi dạo quanh hồ vào buổi tối để cảm nhận không khí lãng mạn, se lạnh của Đà Lạt.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x400/f39c12/ffffff?text=Qu%E1%BA%A3ng+Tr%C6%B0%E1%BB%9Dng+L%C3%A2m+Vi%C3%AAn" class="card-img-top" alt="Quảng Trường Lâm Viên">
+                            <div class="card-body">
+                                <h5 class="card-title">Quảng Trường Lâm Viên</h5>
+                                <p class="card-text">Nơi check-in nổi tiếng với những công trình kiến trúc độc đáo như nụ hoa atiso khổng lồ.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Section -->
+        <section id="am-thuc" class="py-5">
+            <div class="container">
+                <h2 class="section-title text-center">Khám Phá Ẩm Thực</h2>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x400/c0392b/ffffff?text=B%C3%A1nh+tr%C3%A1ng+n%C6%B0%E1%BB%9Bng" class="card-img-top" alt="Bánh tráng nướng">
+                            <div class="card-body">
+                                <h5 class="card-title">Bánh Tráng Nướng</h5>
+                                <p class="card-text">Một trong những món ăn đường phố nổi tiếng nhất của Đà Lạt.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x400/8e44ad/ffffff?text=Kem+B%C6%A1" class="card-img-top" alt="Kem Bơ">
+                            <div class="card-body">
+                                <h5 class="card-title">Kem Bơ</h5>
+                                <p class="card-text">Món tráng miệng độc đáo và béo ngậy, được nhiều người yêu thích.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x400/2ecc71/ffffff?text=S%E1%BB%AFa+%C4%91%E1%BA%ADu+n%C3%A0nh+n%C3%B3ng" class="card-img-top" alt="Sữa đậu nành nóng">
+                            <div class="card-body">
+                                <h5 class="card-title">Sữa Đậu Nành Nóng</h5>
+                                <p class="card-text">Thức uống không thể thiếu trong tiết trời se lạnh của Đà Lạt về đêm.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/600x400/e67e22/ffffff?text=%C4%90%E1%BB%93+n%C6%B0%E1%BB%9Bng" class="card-img-top" alt="Đồ nướng">
+                            <div class="card-body">
+                                <h5 class="card-title">Đồ Nướng</h5>
+                                <p class="card-text">Các quầy đồ nướng nghi ngút khói, nóng hổi hấp dẫn mọi du khách.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="lien-he" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title text-center">Liên Hệ Với Chúng Tôi</h2>
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="feature-box">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Tên của bạn</label>
+                                    <input type="text" class="form-control rounded-pill" id="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email của bạn</label>
+                                    <input type="email" class="form-control rounded-pill" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Nội dung</label>
+                                    <textarea class="form-control rounded-lg" id="message" rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Gửi</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Phố Đêm Đà Lạt. Tất cả bản quyền thuộc về chúng tôi.</p>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <a href="#" class="btn btn-primary btn-lg rounded-circle scroll-top" id="btn-back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNWqV5R1wIeW14N6f4b1WkH7/U1gWp4C0W1/YJ91t1KzU" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hiệu ứng cuộn trang mượt mà cho các liên kết menu
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70, // Trừ đi chiều cao navbar
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Hiển thị/Ẩn nút "Trở về đầu trang"
+            const backToTopButton = document.getElementById('btn-back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.style.display = 'block';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Gắn sự kiện cho các card để tạo hiệu ứng
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseover', () => {
+                    card.style.transform = 'translateY(-10px)';
+                    card.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+                });
+                card.addEventListener('mouseout', () => {
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
