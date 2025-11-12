@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Thống kê";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-bar-chart-fill"></i> Thống kê hệ thống
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Tổng người dùng</h5>
+                    <h2 class="display-4">@ViewBag.TotalUsers</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-success">Đơn hàng</h5>
+                    <h2 class="display-4">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Sản phẩm</h5>
+                    <h2 class="display-4">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Doanh thu</h5>
+                    <h2 class="display-4">0đ</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Hoạt động gần đây</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Chưa có hoạt động nào được ghi nhận.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Quay lại Dashboard</a>
+        </div>
+    </div>
+</div>

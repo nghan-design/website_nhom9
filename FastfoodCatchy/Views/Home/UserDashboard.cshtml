@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Trang cá nhân";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-person-circle"></i> Trang cá nhân
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Thông tin tài khoản</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Họ tên:</strong> @User.Identity.Name</p>
+                    <p><strong>Email:</strong> @User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</p>
+                    <p><strong>Vai trò:</strong> <span class="badge bg-info">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</span></p>
+                    <button class="btn btn-warning">Chỉnh sửa thông tin</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Đơn hàng của tôi</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Bạn chưa có đơn hàng nào.</p>
+                    <button class="btn btn-success">Đặt hàng ngay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Về trang chủ</a>
+        </div>
+    </div>
+</div>

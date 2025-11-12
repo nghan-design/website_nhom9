@@ -1,0 +1,68 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @ViewBag.Message
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-speedometer2"></i> Bảng điều khiển Admin
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Quản lý người dùng</h5>
+                    <p class="card-text">Xem và quản lý tất cả người dùng trong hệ thống</p>
+                    <a asp-action="ManageUsers" class="btn btn-light">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Thống kê</h5>
+                    <p class="card-text">Xem thống kê và báo cáo hệ thống</p>
+                    <a asp-action="Dashboard" class="btn btn-light">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Cài đặt</h5>
+                    <p class="card-text">Cấu hình và cài đặt hệ thống</p>
+                    <a href="#" class="btn btn-light">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Thông tin Admin</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Tên:</strong> @User.Identity.Name</p>
+                    <p><strong>Email:</strong> @User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</p>
+                    <p><strong>Vai trò:</strong> <span class="badge bg-danger">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

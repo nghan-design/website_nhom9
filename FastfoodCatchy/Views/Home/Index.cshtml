@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="container mt-4">
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            @ViewBag.Message
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="jumbotron bg-light p-5 rounded">
+        <h1 class="display-4">Chào mừng đến với FastfoodCatchy!</h1>
+        <p class="lead">Hệ thống quản lý fastfood với phân quyền Admin và User</p>
+        <hr class="my-4">
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p>Xin chào, <strong>@User.Identity.Name</strong>!</p>
+            <p>Vai trò của bạn: <span class="badge bg-primary">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</span></p>
+            
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-danger btn-lg" asp-controller="Admin" asp-action="Index">Vào trang Admin</a>
+            }
+            else
+            {
+                <a class="btn btn-primary btn-lg" asp-action="UserDashboard">Trang cá nhân</a>
+            }
+            
+            <a class="btn btn-secondary btn-lg" asp-controller="Account" asp-action="Logout">Đăng xuất</a>
+        }
+        else
+        {
+            <p>Vui lòng đăng nhập để sử dụng hệ thống</p>
+            <a class="btn btn-success btn-lg" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+            <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">Đăng ký</a>
+        }
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Dành cho Admin</h5>
+                    <p class="card-text">Quản lý người dùng, sản phẩm, đơn hàng và thống kê hệ thống.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Dành cho User</h5>
+                    <p class="card-text">Đặt hàng, xem lịch sử mua hàng và quản lý tài khoản cá nhân.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Bảo mật</h5>
+                    <p class="card-text">Hệ thống phân quyền chặt chẽ với Cookie Authentication.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
