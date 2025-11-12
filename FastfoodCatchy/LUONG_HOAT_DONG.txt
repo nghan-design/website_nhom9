@@ -1,0 +1,231 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    LUỒNG HOẠT ĐỘNG HỆ THỐNG PHÂN QUYỀN                       ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          1. ĐĂNG KÝ TÀI KHOẢN                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+User điền form
+     │
+     ▼
+POST /Account/Register
+     │
+     ├─► Validation (Email, Password, v.v.)
+     │
+     ├─► Kiểm tra email đã tồn tại?
+     │        │
+     │        ├─► Có → Báo lỗi
+     │        └─► Không → Tiếp tục
+     │
+     ├─► Lưu vào UserStore
+     │   {
+     │     FullName: "Nguyễn Văn A",
+     │     Email: "user@gmail.com",
+     │     Password: "12345678",
+     │     Role: UserRole.User  ← Mặc định là User
+     │   }
+     │
+     └─► Redirect → /Account/Login
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          2. ĐĂNG NHẬP                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+User nhập Email + Password
+     │
+     ▼
+POST /Account/Login
+     │
+     ├─► Tìm user trong UserStore
+     │        │
+     │        ├─► Không tìm thấy → Báo lỗi "Sai tài khoản"
+     │        └─► Tìm thấy → Kiểm tra password
+     │                 │
+     │                 ├─► Sai → Báo lỗi "Sai mật khẩu"
+     │                 └─► Đúng → Tiếp tục
+     │
+     ├─► TẠO CLAIMS (Thông tin user)
+     │   [
+     │     { Type: "Name",  Value: "Nguyễn Văn A" },
+     │     { Type: "Email", Value: "user@gmail.com" },
+     │     { Type: "Role",  Value: "User" }  ← QUAN TRỌNG!
+     │   ]
+     │
+     ├─► LƯU VÀO COOKIE
+     │   HttpContext.SignInAsync(...)
+     │   → Cookie được gửi về browser
+     │   → Browser tự động gửi cookie trong mọi request sau
+     │
+     └─► CHUYỂN HƯỚNG THEO ROLE
+          │
+          ├─► Role = "Admin" → /Admin/Index
+          └─► Role = "User"  → /Home/Index
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    3. TRUY CẬP TRANG ĐƯỢC BẢO VỆ                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+User truy cập /Admin/Index
+     │
+     ▼
+Request gửi đến Server (kèm Cookie)
+     │
+     ▼
+┌────────────────────────────────────┐
+│  MIDDLEWARE: UseAuthentication()   │  ← Đọc Cookie, tạo User object
+└────────────────────────────────────┘
+     │
+     ├─► Có Cookie hợp lệ?
+     │        │
+     │        ├─► Không → User.Identity.IsAuthenticated = false
+     │        └─► Có → User.Identity.IsAuthenticated = true
+     │                 User.Claims = [Name, Email, Role]
+     │
+     ▼
+┌────────────────────────────────────┐
+│  MIDDLEWARE: UseAuthorization()    │  ← Kiểm tra quyền truy cập
+└────────────────────────────────────┘
+     │
+     ├─► Controller có [Authorize]?
+     │        │
+     │        ├─► Không → Cho phép truy cập
+     │        └─► Có → Kiểm tra tiếp
+     │                 │
+     │                 ├─► User chưa đăng nhập?
+     │                 │    → Redirect /Account/Login
+     │                 │
+     │                 └─► User đã đăng nhập
+     │                      │
+     │                      ├─► Có yêu cầu Role cụ thể?
+     │                      │    (VD: [Authorize(Roles = "Admin")])
+     │                      │    │
+     │                      │    ├─► User.Role = "Admin"? ✅ → Cho phép
+     │                      │    └─► User.Role = "User"?  ❌ → Redirect /Account/AccessDenied
+     │                      │
+     │                      └─► Không yêu cầu Role cụ thể
+     │                           → Cho phép (chỉ cần đăng nhập)
+     │
+     ▼
+Truy cập thành công → Hiển thị trang
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    4. CÁC TRƯỜNG HỢP CỤ THỂ                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Trường hợp 1: Trang công khai (không có [Authorize])                    │
+├──────────────────────────────────────────────────────────────────────────┤
+│ public IActionResult Index() { }                                         │
+│                                                                          │
+│ → Ai cũng truy cập được (không cần đăng nhập)                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Trường hợp 2: Yêu cầu đăng nhập (có [Authorize])                       │
+├──────────────────────────────────────────────────────────────────────────┤
+│ [Authorize]                                                              │
+│ public IActionResult Profile() { }                                       │
+│                                                                          │
+│ → Phải đăng nhập (cả Admin và User đều được)                           │
+│ → Chưa đăng nhập → Redirect /Account/Login                             │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Trường hợp 3: Chỉ Admin (có [Authorize(Roles = "Admin")])              │
+├──────────────────────────────────────────────────────────────────────────┤
+│ [Authorize(Roles = "Admin")]                                             │
+│ public IActionResult ManageUsers() { }                                   │
+│                                                                          │
+│ → Admin: ✅ Truy cập được                                               │
+│ → User:  ❌ Redirect /Account/AccessDenied                              │
+│ → Guest: ❌ Redirect /Account/Login                                     │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ Trường hợp 4: Nhiều vai trò (có [Authorize(Roles = "Admin,Manager")])  │
+├──────────────────────────────────────────────────────────────────────────┤
+│ [Authorize(Roles = "Admin,Manager")]                                     │
+│ public IActionResult Reports() { }                                       │
+│                                                                          │
+│ → Admin:   ✅ Truy cập được                                             │
+│ → Manager: ✅ Truy cập được                                             │
+│ → User:    ❌ Redirect /Account/AccessDenied                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    5. KIỂM TRA TRONG VIEW                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+@if (User.Identity.IsAuthenticated)
+{
+    <!-- User đã đăng nhập -->
+    <p>Xin chào, @User.Identity.Name</p>
+    
+    @if (User.IsInRole("Admin"))
+    {
+        <!-- Chỉ Admin mới thấy -->
+        <a href="/Admin">Trang Admin</a>
+    }
+    
+    @if (User.IsInRole("User"))
+    {
+        <!-- Chỉ User mới thấy -->
+        <a href="/Home/UserDashboard">Trang cá nhân</a>
+    }
+}
+else
+{
+    <!-- User chưa đăng nhập -->
+    <a href="/Account/Login">Đăng nhập</a>
+}
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    6. ĐĂNG XUẤT                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+User click "Đăng xuất"
+     │
+     ▼
+GET /Account/Logout
+     │
+     ├─► HttpContext.SignOutAsync()
+     │   → Xóa Cookie authentication
+     │   → User.Identity.IsAuthenticated = false
+     │
+     └─► Redirect → /Home/Index
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    7. TÓM TẮT CƠ CHẾ HOẠT ĐỘNG                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+1. ĐĂNG NHẬP
+   → Tạo Claims (Name, Email, Role)
+   → Lưu vào Cookie
+   → Browser tự động gửi Cookie trong mọi request
+
+2. MỖI REQUEST
+   → UseAuthentication() đọc Cookie → Tạo User object với Claims
+   → UseAuthorization() kiểm tra [Authorize] attribute
+   → Cho phép hoặc từ chối truy cập
+
+3. PHÂN QUYỀN
+   [Authorize]                    → Yêu cầu đăng nhập
+   [Authorize(Roles = "Admin")]   → Yêu cầu Role = "Admin"
+   [Authorize(Roles = "A,B")]     → Yêu cầu Role = "A" HOẶC "B"
+
+4. TRONG VIEW
+   User.Identity.IsAuthenticated  → Đã đăng nhập?
+   User.IsInRole("Admin")         → Có Role "Admin"?
+   User.FindFirst(ClaimTypes.Role) → Lấy giá trị Role
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                            HẾT LUỒNG HOẠT ĐỘNG
+═══════════════════════════════════════════════════════════════════════════════
